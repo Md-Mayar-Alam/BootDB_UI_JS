@@ -12,6 +12,6 @@ import com.model.UserRegistration;
 @Repository
 public interface UserRegistrationRepository extends JpaRepository<UserRegistration, Long>{
 	
-	@Query("select u from UserRegistration u join fetch u.user.userRoles r where u.username=:username")
+	@Query("select u from UserRegistration u where u.username=:username")
 	public Optional<UserRegistration> findByUsername(@Param("username")String username);
 }
