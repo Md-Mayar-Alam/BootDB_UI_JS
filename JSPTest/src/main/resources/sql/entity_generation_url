@@ -1,0 +1,7 @@
+Link to generate entity from db
+
+https://o7planning.org/en/10125/using-hibernate-tools-generate-entity-classes-from-tables
+
+NOTE: check <table-filter match-catalog="flipkart" match-name=".*"/> in hibernate.reveng.xml
+
+if the entity classes is not generating or try by changing hibernate version to 5.1 or lower while creating hibernate.reveng.xml 

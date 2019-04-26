@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<jjwt.version>0.6.0</jjwt.version>
 	</properties>
 
 	<dependencies>
@@ -36,7 +37,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
         </dependency>
-
+        
+        <!-- DEPENDENCY ADDED BECAUSE OF ERROR java.lang.ClassNotFoundException: org.eclipse.jdt.internal.compiler.env.INameEnvironment -->
+        
+        <dependency>
+			<groupId>org.eclipse.jdt.core.compiler</groupId>
+			<artifactId>ecj</artifactId>
+			<version>4.6.1</version>
+			<scope>provided</scope>
+		</dependency>
+        
 		<!-- DEPENDENCY FOR USING JSP PAGES ENDS -->
 
 		<!-- DEPENDENCY FOR JPA STARTS -->
@@ -61,15 +71,37 @@
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		
-		<!-- DEPENDENCY FOR MYSQL STARTS -->
+		<!-- DEPENDENCY FOR MYSQL ENDS -->
 		
+		<!-- DEPENDENCY FOR SECURITY STARTS -->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<!-- DEPENDENCY FOR SECURITY ENDS -->
+		
+		<!-- DEPENDENCY FOR JWT STARTS -->
+		
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+		
+		<!-- DEPENDENCY FOR JWT ENDS -->
+		
+		<!-- DEPENDENCY FOR org.apache.common.lang3 STARTS -->
+		
+		<dependency>
+	      <groupId>org.apache.commons</groupId>
+	      <artifactId>commons-lang3</artifactId>
+	    </dependency>
+		
+		<!-- DEPENDENCY FOR org.apache.common.lang3 ENDS -->
 		
 		<!-- DEPENDENCY FOR HIBERNATE NOT REQUIRED YET STARTS -->
-		<!-- <dependency>
-			<groupId>org.hibernate.common</groupId>
-			<artifactId>hibernate-commons-annotations</artifactId>
-			<version>4.0.4.Final</version>
-		</dependency>
 		
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -80,7 +112,19 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
-        
+		
+		<dependency>
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>4.0.4.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>antlr</groupId>
+			<artifactId>antlr</artifactId>
+		</dependency>
+		
+        <!--
         <dependency>
 		        <groupId>javax.xml.bind</groupId>
 		        <artifactId>jaxb-api</artifactId>
@@ -93,6 +137,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- DEPENDENCY FOR USING @ConfigurationProperties Annotation STARTS -->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- DEPENDENCY FOR USING @ConfigurationProperties Annotation ENDS -->
 	</dependencies>
 
 	<build>
