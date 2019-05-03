@@ -1,5 +1,5 @@
 package com.model;
-// Generated Apr 26, 2019 8:02:54 PM by Hibernate Tools 5.1.7.Final
+// Generated May 1, 2019 1:37:58 PM by Hibernate Tools 5.1.7.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -47,7 +47,7 @@ public class Role implements java.io.Serializable {
 
 	@Column(name = "USER_ROLE", length = 128)
 	public String getUserRole() {
-		return this.userRole;
+		return "ROLE_" + this.userRole;
 	}
 
 	public void setUserRole(String userRole) {

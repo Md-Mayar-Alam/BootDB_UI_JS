@@ -1,7 +1,6 @@
 package com.security;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,17 +47,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 		String username= (String)authentication.getPrincipal();
 		String password= (String)authentication.getCredentials();
 		
-		Optional<UserRegistration> userRegistrationOp= userRegistrationService.getByUsername(username);//.orElseThrow(() -> new UsernameNotFoundException("User not found" + username));
-		
-		UserRegistration userRegistration= userRegistrationOp.get();
+		UserRegistration userRegistration= userRegistrationService.getByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found "+ username));
 		
 		if(!bCryptPasswordEncoder.matches(password, userRegistration.getPassword())) {
 			throw new BadCredentialsException("Authentication Failed. Password not valid");
 		}
 		
 		if(userRegistration.getUser().getUserRoles() == null) throw new InsufficientAuthenticationException("User has no roles assigned");
-	
-		/*List<GrantedAuthority> authorities= new ArrayList<SimpleGrantedAuthority>();*/
+		
 		List<GrantedAuthority> authorities= userRegistration.getUser().getUserRoles().stream()
 										.map(authority -> new SimpleGrantedAuthority(authority.getRole().getUserRole()))
 										.collect(Collectors.toList());

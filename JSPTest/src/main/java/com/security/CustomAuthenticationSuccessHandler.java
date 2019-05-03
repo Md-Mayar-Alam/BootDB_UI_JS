@@ -52,7 +52,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		response.setStatus(HttpStatus.OK.value());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		
-		objectMapper.writeValue(response.getWriter(), tokenMap);
+		/*objectMapper.writeValue(response.getWriter(), tokenMap);*/
+		objectMapper.writeValue(response.getOutputStream(), tokenMap);
 		
 		clearAuthenticationAttributes(request);
 	}

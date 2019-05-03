@@ -46,7 +46,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 	@Override
 	public boolean supports(Class<?> authentication) {
 		System.out.println("Inside JwtAuthenticationProvider supports");
-		return (JwtAuthenticationProvider.class.isAssignableFrom(authentication));
+		return (JwtAuthenticationToken.class.isAssignableFrom(authentication));
 	}
 
 }

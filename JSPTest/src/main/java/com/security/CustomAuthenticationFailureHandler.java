@@ -46,7 +46,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 			objectMapper.writeValue(response.getWriter(), ErrorResponse.of(exception.getMessage(), ErrorCode.AUTHENTICATION, HttpStatus.UNAUTHORIZED));
 		}
 		
-		objectMapper.writeValue(response.getWriter(), ErrorResponse.of("Authentication Failed", ErrorCode.AUTHENTICATION, HttpStatus.UNAUTHORIZED));
+		objectMapper.writeValue(response.getWriter(), ErrorResponse.of(exception.getMessage() , ErrorCode.AUTHENTICATION, HttpStatus.UNAUTHORIZED));
 	}
 
 }

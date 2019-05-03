@@ -113,16 +113,28 @@
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.hibernate.common</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
 			<version>4.0.4.Final</version>
+		</dependency> -->
+		
+		<!-- https://mvnrepository.com/artifact/org.hibernate.common/hibernate-commons-annotations -->
+		<dependency>
+		    <groupId>org.hibernate.common</groupId>
+		    <artifactId>hibernate-commons-annotations</artifactId>
+		    <version>5.1.0.Final</version>
 		</dependency>
 		
+		<!-- DEPENDENCY FOR antlr ADDED WHEN antlr Exceptions coming STARTS -->
+		
 		<dependency>
-			<groupId>antlr</groupId>
-			<artifactId>antlr</artifactId>
+			 <groupId>org.antlr</groupId>
+			 <artifactId>antlr-complete</artifactId>
+			 <version>3.5.2</version>
 		</dependency>
+		
+		<!-- DEPENDENCY FOR antlr ADDED WHEN antlr Exceptions coming ENDS -->
 		
         <!--
         <dependency>

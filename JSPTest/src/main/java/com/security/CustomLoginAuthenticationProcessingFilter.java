@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,8 +20,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.domain.LoginRequest;
-import com.security.exception.AuthMethodNotSupportedException;
-import com.util.WebUtil;
 
 public class CustomLoginAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter{
 	
@@ -40,12 +37,14 @@ public class CustomLoginAuthenticationProcessingFilter extends AbstractAuthentic
 		this.authenticationFailureHandler= authenticationFailureHandler;
 		this.objectMapper= objectMapper;
 		System.out.println("Inside CustomLoginAuthenticationProcessingFilter constructor");
+		logger.debug("Inside CustomLoginAuthenticationProcessingFilter constructor");
 	}
 	
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
 		System.out.println("Inside CustomLoginAuthenticationProcessingFilter attemptAuthentication");
+		
 		/*if(!HttpMethod.POST.name().equals(request.getMethod()) || !WebUtil.isAjax(request)) {
 			if(logger.isDebugEnabled()) {
 				logger.debug("Authentication method not supported. Request method "+request.getMethod());
@@ -69,6 +68,7 @@ public class CustomLoginAuthenticationProcessingFilter extends AbstractAuthentic
 			Authentication authResult) throws IOException, ServletException {
 		System.out.println("Inside CustomLoginAuthenticationProcessingFilter successfulAuthentication");
 		authenticationSuccessHandler.onAuthenticationSuccess(request, response, authResult);
+		chain.doFilter(request, response);
 	}
 	
 	@Override

@@ -89,8 +89,8 @@ CREATE TABLE `user_registration`(
 LOCK TABLES `user_registration` WRITE;
 /*!40000 ALTER TABLE `user_registration` DISABLE KEYS */;
 
-INSERT INTO `user_registration` VALUES ('abc@gmail.com', '1000',  'abc@123', '-1', 'RESETPASS', '-1', '2019-04-17 07:37:10', '2019-04-17 07:37:10', NULL, NULL, NULL, '2019-04-17 07:37:10');
-INSERT INTO `user_registration` VALUES ('abcd@gmail.com', '1001','abcd@123', '-1', 'RESETPASS', '-1', '2019-04-17 07:37:10', '2019-04-17 07:37:10', NULL, NULL, NULL, '2019-04-17 07:37:10');
+INSERT INTO `user_registration` VALUES ('1000', 'abc@gmail.com',  'abc@123', '-1', 'RESETPASS', '-1', '2019-04-17 07:37:10', '2019-04-17 07:37:10', NULL, NULL, NULL, '2019-04-17 07:37:10');
+INSERT INTO `user_registration` VALUES ('1001', 'abcd@gmail.com','abcd@123', '-1', 'RESETPASS', '-1', '2019-04-17 07:37:10', '2019-04-17 07:37:10', NULL, NULL, NULL, '2019-04-17 07:37:10');
 
 /*!40000 ALTER TABLE `user_registration` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -139,8 +139,6 @@ UNLOCK TABLES;
 CREATE TABLE `user_role`(
 	`USER_ID` bigint(20) NOT NULL,
 	`ROLE_ID` bigint(20) NOT NULL,
-	KEY `USER_ID` (`USER_ID`),
-	KEY `ROLE_ID` (`ROLE_ID`),
 	CONSTRAINT `user_role_key1` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`USER_ID`) ON DELETE CASCADE,
 	CONSTRAINT `user_role_key2` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ROLE_ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

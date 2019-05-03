@@ -1,5 +1,5 @@
 package com.model;
-// Generated Apr 26, 2019 8:02:54 PM by Hibernate Tools 5.1.7.Final
+// Generated May 1, 2019 1:37:58 PM by Hibernate Tools 5.1.7.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -43,7 +43,7 @@ public class UserRole implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
 	public Role getRole() {
 		return this.role;
@@ -53,7 +53,7 @@ public class UserRole implements java.io.Serializable {
 		this.role = role;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	public User getUser() {
 		return this.user;

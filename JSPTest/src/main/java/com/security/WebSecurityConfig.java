@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		System.out.println("Inside WebSecurityConfig configure(AuthenticationManagerBuilder auth)");
 		auth.authenticationProvider(customAuthenticationProvider);
 		auth.authenticationProvider(jwtAuthenticationProvider);
+		System.out.println("JwtAuthenticationProvider "+jwtAuthenticationProvider);
 	}
 	
 	@Override

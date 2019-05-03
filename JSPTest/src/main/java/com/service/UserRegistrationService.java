@@ -20,6 +20,5 @@ public class UserRegistrationService {
 	
 	public Optional<UserRegistration> getByUsername(String username){
 		return userRegistrationRepository.findByUsername(username);
-		//return userRegistrationRepository.findById(username);
 	}
 }
