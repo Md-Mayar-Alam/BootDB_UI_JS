@@ -21,9 +21,9 @@ import com.model.UserRegistration;
 import com.security.model.UserContext;
 import com.service.UserRegistrationService;
 
-/*
- * 
- * @author Md. Mayar Alam
+/**
+ * @author Md Mayar Alam
+ * This class contains supports method on which basis
  */
 
 @Component
@@ -63,7 +63,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 		
 		return new UsernamePasswordAuthenticationToken(userContext, null, authorities);
 	}
-
+	
+	/**
+	 * This method is called to verify that which AuthenticationProvider should be used 
+	 * on the basis of object passed as an argument in authenticate() of  corresponding attemptAuthentication()
+	 * for ex: in this case where the user is already authenticated then the 
+	 * attemptAuthentication() of JwtTokenAuthenticationProcessingFilter Class will be called 
+	 */
 	@Override
 	public boolean supports(Class<?> authentication) {
 		System.out.println("Inside CustomAuthenticationProvider supports");

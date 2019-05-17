@@ -13,6 +13,7 @@ public class LoginPageController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String getLoginPage(Model model) {
+		System.out.println("Inside LoginPageController");
 		model.addAttribute("loginRequest", new LoginRequest());
 		return "login";
 	}

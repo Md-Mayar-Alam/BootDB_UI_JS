@@ -1,11 +1,16 @@
-$(document).ready(function(){
-	/*$("#loginSubmit").click(function(event){
-		submitForm(event);
-	});*/
+jQuery(document).ready(function(){
+	//jQuery coming from common.js
 	
-	$("#loginSubmit").on("click", function(event){
+	//setting focus on username textbox
+	$("#username").focus();
+	
+	jQuery("#loginSubmit").click(function(event){
 		submitForm(event);
 	});
+	
+	/*jQuery("#loginSubmit").on("click", function(event){
+		submitForm();
+	});*/
 });
 
 function submitForm(event){
@@ -27,11 +32,34 @@ function submitForm(event){
 			type: "POST",
 			contentType: "application/json; charset=utf-8",		/*contentType is the header sent to the server, specifying a particular format*/
 			data: JSON.stringify(formData),
-			success: function(response, data){
+			crossDomain: true,
+			success: function(response, data, xhr){
 				var accessToken= response.accessToken;
 				var refreshToken= response.refreshToken;
+				
+				var header1= xhr.getResponseHeader("Set-Cookie");
+				var header2= xhr.getResponseHeader("ACCESS_TOKEN_COOKIE");
+				var header3= xhr.getResponseHeader("test");
+				
+				if(accessToken != null && !isEmptyString(accessToken) && 
+						refreshToken != null && !isEmptyString(refreshToken) &&
+						$.isEmptyObject(Token)){
+					
+					Token.accessToken= accessToken;
+					Token.refreshToken= refreshToken;
+				}else{
+					console.log("something wrong with jwt token");
+				}
 			},
 			error: function(error){
+				if(error.responseJSON.status == "UNAUTHORIZED"){
+					$("#loginError").removeClass("hide");
+					
+					$("#username").val("");
+					$("#password").val("");
+					
+					$("#username").focus();
+				}
 				console.log(error);
 			}
 		});

@@ -11,6 +11,8 @@ public class JwtConfig {
 	private String tokenIssuer;
 	private String tokenSigningKey;
 	private Long refreshTokenExpTimeMs;
+	private Integer cookieMaxAge;
+	
 	public Long getTokenExpirationTimeMs() {
 		return tokenExpirationTimeMs;
 	}
@@ -34,5 +36,11 @@ public class JwtConfig {
 	}
 	public void setRefreshTokenExpTimeMs(Long refreshTokenExpTimeMs) {
 		this.refreshTokenExpTimeMs = refreshTokenExpTimeMs;
+	}
+	public Integer getCookieMaxAge() {
+		return cookieMaxAge;
+	}
+	public void setCookieMaxAge(Integer cookieMaxAge) {
+		this.cookieMaxAge = cookieMaxAge;
 	}
 }

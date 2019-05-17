@@ -28,6 +28,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 		this.jwtConfig= jwtConfig;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		System.out.println("Inside JwtAuthenticationProvider authenticate");
@@ -42,7 +43,13 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 		UserContext userContext= UserContext.create(subject, authorities);
 		return new JwtAuthenticationToken(userContext, authorities);
 	}
-
+	
+	/**
+	 * This method is called to verify that which AuthenticationProvider should be used 
+	 * on the basis of object passed as an argument in authenticate() of  corresponding attemptAuthentication()
+	 * for ex: in this case where the user is already authenticated then the 
+	 * attemptAuthentication() of CustomLoginAuthenticationProcessingFilter Class will be called 
+	 */
 	@Override
 	public boolean supports(Class<?> authentication) {
 		System.out.println("Inside JwtAuthenticationProvider supports");

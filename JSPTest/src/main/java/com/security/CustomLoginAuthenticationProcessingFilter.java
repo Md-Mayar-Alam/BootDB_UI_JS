@@ -21,6 +21,15 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.domain.LoginRequest;
 
+/**
+ * @author Md Mayar Alam
+ * 
+ * This class will be called for authentication purposes of username and password when user login
+ * The authentication is based on the defaultProcessUrl which is passed in the constructor
+ * and passed to AbstractAuthenticationProcessingFilter constructor.
+ * This class should be mapped through WebSecurityConfig configure(HttpSecurity) in which we 
+ * add our filter before UsernamePasswordAuthenticationFilter and passes defaultProcessUrl to it.
+ */
 public class CustomLoginAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter{
 	
 	private static Logger logger= LoggerFactory.getLogger(CustomLoginAuthenticationProcessingFilter.class);
@@ -30,6 +39,15 @@ public class CustomLoginAuthenticationProcessingFilter extends AbstractAuthentic
 	
 	private final ObjectMapper objectMapper;
 	
+	/**
+	 * @param defaultProcessUrl
+	 * @param authenticationSuccessHandler
+	 * @param authenticationFailureHandler
+	 * @param objectMapper
+	 * 
+	 * This constructor is called from WebSecurityConfig configure(HttpSecurity) in which we are adding this filter
+	 * before UsernamePasswordAuthenticationFilter
+	 */
 	public CustomLoginAuthenticationProcessingFilter(String defaultProcessUrl, AuthenticationSuccessHandler authenticationSuccessHandler,
 			AuthenticationFailureHandler authenticationFailureHandler, ObjectMapper objectMapper) {
 		super(defaultProcessUrl);
@@ -40,6 +58,10 @@ public class CustomLoginAuthenticationProcessingFilter extends AbstractAuthentic
 		logger.debug("Inside CustomLoginAuthenticationProcessingFilter constructor");
 	}
 	
+	/**
+	 * This method will be called automatically by the spring framework as we have added the same filter 
+	 * before UsernamePasswordAuthenticationFilter for defaultProcessUrl in WebSecurityConfig configure(HttpSecurity)
+	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
@@ -60,6 +82,15 @@ public class CustomLoginAuthenticationProcessingFilter extends AbstractAuthentic
 		
 		UsernamePasswordAuthenticationToken token= new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
 		
+		/* based on the object of Class provided in the authenticate() the ProviderManager will be decided
+		 * in our case for authentication we are providing UsernamePasswordAuthenticationToken then spring
+		 * will execute supports() of all ProviderManager we have provided to it, and whose supports() will return true
+		 * it will execute authenticate() for the same ProviderManager.
+		 * In our case we are providing 2 ProviderManager
+		 * 1. CustomAuthenticationProvider
+		 * 2. JwtAuthenticationProvider
+		 * Note: Both of the ProviderManager are mapped through WebSecurityConfig configure(AuthenticationManagerBuilder)
+		 */
 		return this.getAuthenticationManager().authenticate(token);
 	}
 
@@ -68,6 +99,8 @@ public class CustomLoginAuthenticationProcessingFilter extends AbstractAuthentic
 			Authentication authResult) throws IOException, ServletException {
 		System.out.println("Inside CustomLoginAuthenticationProcessingFilter successfulAuthentication");
 		authenticationSuccessHandler.onAuthenticationSuccess(request, response, authResult);
+
+		//super.successfulAuthentication(request, response, chain, authResult);
 		chain.doFilter(request, response);
 	}
 	

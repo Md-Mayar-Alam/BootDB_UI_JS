@@ -62,8 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		System.out.println("Inside WebSecurityConfig configure(HttpSecurity http)");
 		List<String> permitAllEndpointList= Arrays.asList(
 					AUTHENTICATION_URL,
-					REFRESH_TOKEN_URL,
-					"/welcome"
+					REFRESH_TOKEN_URL
 				);
 		
 		http.
@@ -85,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.formLogin()
 				.permitAll()
 			.and()
-				.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
+				//.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(buildCustomLoginAuthenticationProcessingFilter(AUTHENTICATION_URL), UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, API_ROOT_URL), UsernamePasswordAuthenticationFilter.class);
 		

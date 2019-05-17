@@ -13,4 +13,10 @@ public class SecuredHelloController {
 	public String securedHello() {
 		return "Hello!!! from secured hello";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/api/mySecuredHello", method=RequestMethod.GET)
+	public String mySecuredHello() {
+		return "Hello!!! from my secured hello";
+	}
 }
