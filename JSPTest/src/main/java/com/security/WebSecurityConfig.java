@@ -84,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.formLogin()
 				.permitAll()
 			.and()
-				//.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(buildCustomLoginAuthenticationProcessingFilter(AUTHENTICATION_URL), UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, API_ROOT_URL), UsernamePasswordAuthenticationFilter.class);
 		

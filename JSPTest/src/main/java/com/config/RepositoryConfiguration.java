@@ -2,6 +2,7 @@ package com.config;
 
 import java.util.Properties;
 
+import javax.persistence.SharedCacheMode;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ public class RepositoryConfiguration {
 		entityManagerFactoryBean.setPackagesToScan("com.model");
 		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		entityManagerFactoryBean.setJpaProperties(additionalProperties());
-		
+		//For enabling L2 cache
+		entityManagerFactoryBean.setSharedCacheMode(SharedCacheMode.ALL);
 		return entityManagerFactoryBean;
 	}
 
