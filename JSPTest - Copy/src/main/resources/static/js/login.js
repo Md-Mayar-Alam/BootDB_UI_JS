@@ -13,6 +13,29 @@ jQuery(document).ready(function(){
 	});*/
 });
 
+jQuery(document).ready(function($) {
+
+	  if (window.history && window.history.pushState) {
+
+	    //window.history.pushState('forward', null, 'window.locn.href' + './#forward');
+		window.history.pushState('nohb', null, '');
+		
+	    $(window).on('popstate', function() {
+	      alert('Back button was pressed.');
+	      
+	      var currentUrl= window.location.href;
+	      window.location.href= currentUrl+ "?isBackButtonClicked=true";
+	      
+	      /*$.ajax({
+	    	 type: "GET",
+	    	 url: window.location.href + "&isBackButtonClicked=true",
+	    	 
+	      });*/
+	    });
+
+	  }
+});
+
 function submitForm(event){
 	event.preventDefault();
 	

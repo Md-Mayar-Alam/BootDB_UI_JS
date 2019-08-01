@@ -46,7 +46,25 @@ public class RepositoryConfiguration {
 	private Properties additionalProperties() {
 		Properties properties = new Properties();
 		
+		
+		/*
+		 * hibernate.hbm2ddl.auto Automatically validates or exports schema DDL to the database when the SessionFactory is created. 
+		 * With create-drop, the database schema will be dropped when the SessionFactory is closed explicitly.
+			e.g. validate | update | create | create-drop
+			
+			So the list of possible options are,
+			
+			validate: validate the schema, makes no changes to the database.
+			update: update the schema.
+			create: creates the schema, destroying previous data.
+			create-drop: drop the schema when the SessionFactory is closed explicitly, typically when the application is stopped.
+		 */
 		properties.setProperty("hibernate.hbm2ddl.auto", databaseConfiguration.HIBERNATE_HBM2DDl_AUTO);
+		
+		/*
+		 * The dialect specifies the type of database used in hibernate so that hibernate generate appropriate type of SQL statements. 
+		 * For connecting any hibernate application with the database, it is required to provide the configuration of SQL dialect.
+		 */
 		properties.setProperty("hibernate.dialect", databaseConfiguration.HIBERNATE_DIALECT);
 		
 		return properties;
