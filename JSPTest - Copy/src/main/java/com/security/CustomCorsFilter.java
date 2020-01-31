@@ -20,7 +20,7 @@ public class CustomCorsFilter extends CorsFilter{
 		corsConfig.addAllowedOrigin("*");
 		corsConfig.addAllowedHeader("*");
 		corsConfig.setMaxAge(36000L);
-		corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "HEAD", "PUT", "DELETE", "HEAD", "OPTIONS"));
+		corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "HEAD", "PUT", "DELETE", "OPTIONS"));
 		UrlBasedCorsConfigurationSource urlCorsSource= new UrlBasedCorsConfigurationSource();
 		urlCorsSource.registerCorsConfiguration("/api/**", corsConfig);
 		

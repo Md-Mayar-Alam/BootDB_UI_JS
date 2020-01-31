@@ -4,7 +4,14 @@ import java.util.Collection;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-
+/**
+ *  public abstract class AbstractAuthenticationToken extends Object implements Authentication, CredentialsContainer
+ *	AbstractAuthenticationToken Base class for Authentication objects.
+ *	
+ *	JwtAuthenticationToken class will also act as Authentication object
+ *	
+ *	@see com.security.jwt.JwtTokenAuthenticationProcessingFilter
+ */
 public class JwtAuthenticationToken extends AbstractAuthenticationToken{
 
 	private static final long serialVersionUID = 2877954820905567501L;

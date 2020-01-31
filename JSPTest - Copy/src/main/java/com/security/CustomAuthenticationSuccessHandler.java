@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -43,6 +44,17 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	private static final String ACCESS_TOKEN_COOKIE= "ACCESS_TOKEN_COOKIE";
 	private static final String REFRESH_TOKEN_COOKIE= "REFRESH_TOKEN_COOKIE";*/
 	
+	
+	/**
+	 * In this class we are going to generate the Access and Refresh Token
+	 * for which we will need the object of JwtTokenFactory.
+	 * So we are doing here constructor injection for JwtTokenFactory which is 
+	 * already annotated with @Component
+	 * 
+	 * @param objectMapper
+	 * @param jwtTokenFactory
+	 * @see com.security.jwt.JwtTokenFactory
+	 */
 	@Autowired
 	public CustomAuthenticationSuccessHandler(final ObjectMapper objectMapper, final JwtTokenFactory jwtTokenFactory) {
 		System.out.println("Inside CustomAuthenticationSuccessHandler constructor");
@@ -50,10 +62,22 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		this.objectMapper= objectMapper;
 	}
 	
+	/**
+	 * This method is invoked when the user is successfully authenticated by
+	 * username and password.
+	 * And inside this method we are going to create the AccessToken and RefreshToken.
+	 * And will also set it in the HttpOnly Cookie.
+	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		System.out.println("Inside CustomAuthenticationSuccessHandler onAuthenticationSuccess");
+		
+		/**
+		 * We have set this UserContext as Principal in CustomAuthenticationProvider
+		 * authenticate() method in the Principal
+		 * return new UsernamePasswordAuthenticationToken(userContext, null, authorities);
+		 */
 		UserContext userContext= (UserContext)authentication.getPrincipal();
 		
 		JwtToken accessToken= jwtTokenFactory.createAccessJwtToken(userContext);
@@ -97,9 +121,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		clearAuthenticationAttributes(request);
 	}
 
-	/*
+	/**
 	 * method to remove temporary authentication related data which
 	 * may have been stored in the session while authentication process
+	 * @param request
 	 */
 	private void clearAuthenticationAttributes(HttpServletRequest request) {
 		HttpSession session= request.getSession(false);

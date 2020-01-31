@@ -16,7 +16,7 @@
 			<spring:message code="login.unauthorized.error.msg" text="Invalid username or password"></spring:message>
 		</div>
 		<div>
-			<form:form id="loginForm" modelAttribute="loginRequest" method="POST">
+			<form:form id="loginForm" modelAttribute="loginRequest" method="POST" action="/">
 				<div>
 					<div>
 						<label for="username"> <spring:message code="login.username"></spring:message>

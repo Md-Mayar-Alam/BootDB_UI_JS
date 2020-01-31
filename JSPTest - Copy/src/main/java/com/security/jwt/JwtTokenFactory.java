@@ -18,6 +18,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+/**
+ * This class is responsible to create Access and Refresh Token.
+ * 
+ * @author Mohammad Mayar Alam
+ * @see com.security.model.AccessJwtToken
+ */
+
 @Component
 public class JwtTokenFactory {
 
@@ -29,8 +36,12 @@ public class JwtTokenFactory {
 		this.jwtConfig= jwtConfig;
 	}
 	
-	/*
+	/**
 	 * Factory method for creating JWTAccessToken
+	 * To create JWT token we need some informations like username, authorities etc
+	 * all that kind of information we are providing in UserContext object
+	 * @param userContext
+	 * @return com.security.model.AccessJwtToken object
 	 */
 	public AccessJwtToken createAccessJwtToken(UserContext userContext) {
 		System.out.println("Inside JwtTokenFactory createAccessJwtToken");
@@ -53,11 +64,12 @@ public class JwtTokenFactory {
 		return new AccessJwtToken(token, claims);
 	}
 
-	/*
-	 * Factory method to create JWTRefreshToken
-	 * 
+	/**
+	 * Factory method for creating JWT Refresh Token.
+	 * @param userContext
+	 * @return com.security.model.JwtToken object
 	 */
-	public JwtToken createRefreshToken(UserContext userContext) {
+	public AccessJwtToken createRefreshToken(UserContext userContext) {
 		System.out.println("Inside JwtTokenFactory createRefreshToken");
 		checkUserContext(userContext);
 		
@@ -83,6 +95,11 @@ public class JwtTokenFactory {
 	 */
 	private void checkUserContext(UserContext userContext) {
 		System.out.println("Inside JwtTokenFactory checkUserContext");
+		
+		/**
+		 * IllegalArgumentException should be thrown when an illegal or inappropriate argument
+		 * is passed. 
+		 */
 		if(StringUtils.isBlank(userContext.getUsername())) {
 			throw new IllegalArgumentException("Cannot create JWT token without username");
 		}

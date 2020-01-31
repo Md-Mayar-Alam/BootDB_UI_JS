@@ -11,10 +11,12 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 
 /**
- * @author Md Mayar Alam
+ * This class will work as the matcher which will be responsible to match the urls that
+ * whether a url is permitted or secure.
  * This class is mapped with JwtTokenAuthenticationProcessingFilter in WebSecurityConfig
  * buildJwtTokenAuthenticationProcessingFilter()
- *
+ * 
+ * @author Md Mayar Alam
  */
 public class SkipPathRequestMatcher implements RequestMatcher{
 

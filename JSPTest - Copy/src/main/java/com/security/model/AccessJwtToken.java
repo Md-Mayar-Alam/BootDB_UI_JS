@@ -2,9 +2,10 @@ package com.security.model;
 
 import io.jsonwebtoken.Claims;
 
-/*
- * @author Alam
- * final class to stop inheritance
+/**
+ * This class is used to represent raw JWT token
+ * @author Mohammad Mayar Alam
+ * @see com.security.jwt.JwtTokenFactory
  */
 
 public final class AccessJwtToken implements JwtToken{

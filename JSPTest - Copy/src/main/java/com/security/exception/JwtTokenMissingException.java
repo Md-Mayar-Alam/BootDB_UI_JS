@@ -1,8 +1,8 @@
 package com.security.exception;
 
-import org.springframework.security.access.AuthorizationServiceException;
+import io.jsonwebtoken.JwtException;
 
-public class JwtTokenMissingException extends AuthorizationServiceException{
+public class JwtTokenMissingException extends JwtException{
 	
 	private static final long serialVersionUID = -5369985581097918217L;
 

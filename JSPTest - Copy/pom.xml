@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jjwt.version>0.6.0</jjwt.version>
+		<jwt.version>0.6.0</jwt.version>
 	</properties>
 
 	<dependencies>
@@ -87,7 +87,7 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
-			<version>${jjwt.version}</version>
+			<version>${jwt.version}</version>
 		</dependency>
 		
 		<!-- DEPENDENCY FOR JWT ENDS -->

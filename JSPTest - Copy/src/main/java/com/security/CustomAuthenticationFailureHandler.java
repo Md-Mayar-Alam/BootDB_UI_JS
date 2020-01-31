@@ -21,11 +21,12 @@ import com.security.exception.AuthMethodNotSupportedException;
 import com.security.exception.JwtExpiredTokenException;
 
 /**
- * @author Md Mayar Alam
  * This handler is called on unsuccessful authentication of user.
  * This handler is mapped with CustomLoginAuthenticationProcessingFilter in WebSecurityConfig
  * buildCustomLoginAuthenticationProcessingFilter() in which we are passing this hadler as 
  * constructor parameter of CustomLoginAuthenticationProcessingFilter
+ * 
+ * @author Md Mayar Alam
  */
 @Component
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler{

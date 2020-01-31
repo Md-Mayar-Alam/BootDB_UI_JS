@@ -2,9 +2,11 @@ package com.config;
 
 import java.util.Properties;
 
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.SharedCacheMode;
 import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +44,7 @@ public class RepositoryConfiguration {
 		entityManagerFactoryBean.setSharedCacheMode(SharedCacheMode.ALL);
 		return entityManagerFactoryBean;
 	}
-
+	
 	private Properties additionalProperties() {
 		Properties properties = new Properties();
 		

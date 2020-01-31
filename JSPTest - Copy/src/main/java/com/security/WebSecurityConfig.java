@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	public static final String AUTHENTICATION_HEADER_NAME= "Authorization";
 	public static final String AUTHENTICATION_URL= "/api/auth/login";
 	public static final String REFRESH_TOKEN_URL= "/api/auth/token";
-	public static final String API_ROOT_URL= "/api/**";
+	public static final String URL_TO_SECURE= "/api/**";
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -78,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.permitAll()
 			.and()
 				.authorizeRequests()
-				.antMatchers(API_ROOT_URL)
+				.antMatchers(URL_TO_SECURE)
 				.authenticated()
 			.and()
 				.formLogin()
@@ -86,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 				.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(buildCustomLoginAuthenticationProcessingFilter(AUTHENTICATION_URL), UsernamePasswordAuthenticationFilter.class)
-				.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, API_ROOT_URL), UsernamePasswordAuthenticationFilter.class);
+				.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, URL_TO_SECURE), UsernamePasswordAuthenticationFilter.class);
 		
 			/*http.formLogin()
 				.loginPage("/login")
@@ -107,9 +107,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		return loginFilter;
 	}
 
-	protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter(List<String> pathsToSkip, String pattern) {
+	protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter(List<String> pathsToSkip, String pathsToSecure) {
 		System.out.println("Inside WebSecurityConfig buildJwtTokenAuthenticationProcessingFilter");
-		SkipPathRequestMatcher matcher= new SkipPathRequestMatcher(pathsToSkip, pattern);
+		
+		/**
+		 * In SkipPathRequestMatcher constructor we are passing the list of urls to permit in the
+		 * 1st parameter and url to secure in the 2nd paramter
+		 */
+		SkipPathRequestMatcher matcher= new SkipPathRequestMatcher(pathsToSkip, pathsToSecure);
 		JwtTokenAuthenticationProcessingFilter tokenFilter= new JwtTokenAuthenticationProcessingFilter(failureHandler, tokenExtractor, matcher);
 		tokenFilter.setAuthenticationManager(authenticationManager);
 		return tokenFilter;

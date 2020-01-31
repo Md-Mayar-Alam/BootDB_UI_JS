@@ -17,13 +17,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 import com.model.UserRegistration;
 import com.security.model.UserContext;
 import com.service.UserRegistrationService;
 
 /**
- * @author Md Mayar Alam
- * This class contains supports method on which basis
+ * This class is responsible for verifying the username and credentials from the DB.
+ * It also contains the supports method which is used to call the authenticate method
+ * of this class on the basis of object passed as an argument in authenticate method
+ * 
+ * @author Mohammad Mayar Alam
+ * @see com.security.CustomLoginAuthenticationProcessingFilter
  */
 
 @Component
@@ -39,6 +44,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 		this.userRegistrationService= userRegistrationService;
 	}*/
 	
+	/**
+	 * Method responsible for verifying the username and password from the DB.
+	 * The Authentication object as parameter in this method is of UsernamePasswordAuthenticationToken
+	 * which contains our username and password and the same will be used to verify the details from the DB.
+	 */
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		System.out.println("Inside CustomAuthenticationProvider authenticate");
@@ -61,6 +71,18 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 		
 		UserContext userContext= UserContext.create(userRegistration.getUsername(), authorities);
 		
+		/**
+		 * we are providing here userContext as principal in UsernamePasswordAuthenticationToken
+		 * constructor because at the time of token creation we are checking for the username
+		 * and authorities of customer.
+		 * See Reference:- 
+		 * createAccessToken(UserContext userContext) method of JwtTokenFactory and
+		 * checkUserContext method of JwtTokenFactory
+		 * 
+		 * also if the user is successfully authenticated then this userContext which we are setting 
+		 * here will be used in the class CustomAuthenticationSuccessHandler
+		 * onAuthenticationSuccess() method for creating accessToken and refreshToken
+		 */
 		return new UsernamePasswordAuthenticationToken(userContext, null, authorities);
 	}
 	

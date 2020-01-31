@@ -43,7 +43,10 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
 
 	/**
 	 * This method will be called when SkipPathRequestMatcher matches() returns true
-	 * means the request should be intercepted
+	 * means the request should be intercepted.
+
+	 * This method will extract raw access jwt token from header and pass it to the
+	 * ProviderManager to verify it.
 	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -73,6 +76,12 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
 		 * 2. JwtAuthenticationProvider
 		 * Note: Both of the ProviderManager are mapped through WebSecurityConfig configure(AuthenticationManagerBuilder)
 		 */
+		
+		/**
+		 * regarding of JwtAuthenticationToken class we are using it because 
+		 * inside autheticate() we need an authentication object and we are
+		 * making our own Authentication object using JwtAuthenticationToken.
+		 */
 		return getAuthenticationManager().authenticate(new JwtAuthenticationToken(rawToken));
 	}
 
@@ -80,6 +89,13 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		System.out.println("Inside JwtTokenAuthenticationProcessingFilter successfulAuthentication");
+		
+		/**
+		 * The  SecurityContext  and  SecurityContextHolder are two fundamental classes of Spring Security. 
+		 * The SecurityContext  is used to store the details of the currently authenticated user, also known as a principle. 
+		 * So, if you have to get the username or any other user details, you need to get the SecurityContext first.
+		 * This is used very frequently if we want to get the current user in the method which is getting called after authorization.
+		 */
 		
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authResult);
